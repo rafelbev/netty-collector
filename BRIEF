@@ -1,0 +1,23 @@
+You should create data 2 collectors that will be able to retrieve data from different kind of devices that are capable of transmitting data (push).
+Data collectors should be based on Netty libraries.
+Data collectors must be able to be compiled and run as separate applications but share a common code base.
+Reuse as much of the code as possible between the 2 collectors.
+Keep in mind that future collectors could also use a pull methodology.
+For these 2 collectors, HTTP and UDP protocol should be supported, respectively.
+All collectors should save collected data to Mongo DB.
+Configuration for each collector should be in a configuration file, including database connection parameters and the Mongo collection to use.
+The use of third party libraries is permitted.
+
+1. Create a simple HTTP server application that collect.
+1.1. The devices will call 3 methods: startTracking, trackingPoint, stopTracking.
+1.2. The message payload will be in JSON format and must be stored in Mongo Database.
+1.3. Server should be able to accept high number of connections without losing data. (Every received packet should be stored). Packet loss is not acceptable.
+1.4. Every stored message should contain additional field with timestamp when the packet was received.
+1.5. Server should respond to each request with success or fail (JSON+HTTP Status Code).
+ **example json file included
+
+2. Create a simple UDP server application that would receive and store the received data in Mongo DB.
+2.1 The message payload is sent using the US_ASCII charset.
+2.2 Each ASCII byte must be converted to it's equivalent Hexadecimal string value before storing the complete message to Mongo.
+2.3 Server should be able to accept high number of connections without losing data. (Every received packet should be stored). Packet loss is not acceptable.
+2.4 Every stored message should contain additional field with timestamp when the packet was received.
